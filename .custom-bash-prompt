@@ -1,0 +1,58 @@
+
+# original guerilla warfare method, imported the version provided by git and changed it to fit the format that I wanted
+# PS1="\n{ \[\e[1;36m\]\@\[\e[0m\] } \[\e[1;35m\]\W\[\e[0m\] \[\e[0;31m\](main)\[\e[0m\] \[\e[0;32m\]\$\[\e[0m\]\n\[\e[1;35m\]//\[\e[0m\] \[\e[1;32m\]🛸\[\e[0m\] "
+
+# config for git-prompt
+MAGENTA="\[\033[1;35m\]"
+YELLOW="\[\033[01;33m\]"
+BLUE="\[\033[00;34m\]"
+LIGHT_GRAY="\[\033[0;37m\]"
+CYAN="\[\033[01;36m\]"
+GREEN="\[\033[00;32m\]"
+RED="\[\033[0;31m\]"
+VIOLET='\[\033[01;35m\]'
+NEON='\[\033[01;32m\]'
+WHITE='\[\e[0m\]'
+export LS_OPTIONS='--color=auto'
+export CLICOLOR='Yes'
+export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
+function color_my_prompt {
+  local __current_time="$WHITE{ $CYAN\@ $WHITE}"
+  local __slash_and_ship="$MAGENTA// $NEON🛸" # \h =>to add host
+  local __cur_location="$MAGENTA\W"   #capital 'W': current directory, small 'w':full file path
+  local __git_branch_color="$NEON"
+  local __user_rights="$GREEN\$"
+  local __user_input_color="$GREEN"
+  #local __git_branch='`git branch 2> /dev/null | grep -e ^* | sed -E s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
+  #local __git_branch='$(__git_ps1 " (%s)")';
+  local __git_branch=$(__git_ps1);  
+
+  # colour branch name depending on state
+    if [[ "${__git_branch}" =~ "*" ]]; then           # if repository is dirty
+       __git_branch_color="$RED"
+    elif [[ "${__git_branch}" =~ "$" ]]; then         # if there is something stashed
+       __git_branch_color="$YELLOW"
+    elif [[ "${__git_branch}" =~ "%" ]]; then         # if there are only untracked files
+       __git_branch_color="$LIGHT_GRAY"
+    elif [[ "${__git_branch}" =~ "+" ]]; then         # if there are staged files
+       __git_branch_color="$CYAN"
+    fi
+
+  # build prompt string
+  PS1="\n$__current_time $__cur_location$__git_branch_color$__git_branch $__user_rights\n$__slash_and_ship$__user_input_color "
+}
+# call PROMPT_COMMAND which is executed before PS1
+export PROMPT_COMMAND=color_my_prompt
+
+# Uncomment below to use basic git-prompt (without colours)
+#export PROMPT_COMMAND='__git_ps1 "\u:\W" "$"'
+
+if [ -f ~/.git-prompt.sh ]; then
+  GIT_PS1_SHOWDIRTYSTATE=true
+  GIT_PS1_SHOWSTASHSTATE=true
+  GIT_PS1_SHOWUNTRACKEDFILES=true
+  GIT_PS1_SHOWUPSTREAM="auto"
+  GIT_PS1_HIDE_IF_PWD_IGNORED=true
+  GIT_PS1_SHOWCOLORHINTS=true
+  . ~/.git-prompt.sh
+fi

@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# greet the user
+function greet() {
+ 	 echo Hello $1!
+}
+
+function gititdone() {
+printf "\033[1;35m
+   ___  ____  ____    ____  ____    ____  _____  _  _  ____ 
+  / __)(_  _)(_  _)  (_  _)(_  _)  (  _ \(  _  )( \( )( ___)
+ ( (_-. _)(_   )(     _)(_   )(     )(_) ))(_)(  )  (  )__) 
+  \___/(____) (__)   (____) (__)   (____/(_____)(_)\_)(____)\n\n"
+}
+
+function lazygit() {
+	git add .
+	git commit -m "$1"
+	git push origin main
+	gititdone
+}
+
+alias c='xclip -selection clipboard'
+
+alias v='xclip -o -selection clipboard'
+
+function hipsum() {
+    curl -s "https://hipsum.co/api/?type=hipster-centric&paras=1" | jq | c
+}
