@@ -14,8 +14,8 @@ and this is where mine ended up:
 
 these files are linked as sources in .bashrc, and it does say pretty clearly in the vanilla file:
 
-\# \# uncomment for a colored prompt, if the terminal has the capability; turned
-\# \# off by default to not distract the user: the focus in a terminal window
+\# \# uncomment for a colored prompt, if the terminal has the capability; turned\n
+\# \# off by default to not distract the user: the focus in a terminal window\n
 \# \# should be on the output of commands, not on the prompt
 
 but I think I learned a lot about bash in the process of making my terminal window a threat to my focus.
