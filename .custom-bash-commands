@@ -5,6 +5,7 @@ function greet() {
  	 echo Hello $1!
 }
 
+#print purple ASCII art to the terminal
 function gititdone() {
 printf "\033[1;35m
    ___  ____  ____    ____  ____    ____  _____  _  _  ____ 
@@ -13,6 +14,7 @@ printf "\033[1;35m
   \___/(____) (__)   (____) (__)   (____/(_____)(_)\_)(____)\n\n"
 }
 
+#stage commit and push to the main branch in one command
 function lazygit() {
 	git add .
 	git commit -m "$1"
@@ -20,10 +22,16 @@ function lazygit() {
 	gititdone
 }
 
+#copy output of the shell to the clipboard, purely QoL
 alias c='xclip -selection clipboard'
 
+#paste from the clipboard, this probably doesnt need an alias,
+#but I did one so might as well do the other
 alias v='xclip -o -selection clipboard'
 
+#get a paragraph from hipster ipsum's api and copy to the clipboard for ease of adding to a project.
+#could increase functionality by changing "paras" to an argument so that "sentences" could be used instead && same with the number
+#need to use it a few times to see if that would be useful
 function hipsum() {
     curl -s "https://hipsum.co/api/?type=hipster-centric&paras=1" | jq | c
 }
