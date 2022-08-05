@@ -32,6 +32,12 @@ alias v='xclip -o -selection clipboard'
 #get a paragraph from hipster ipsum's api and copy to the clipboard for ease of adding to a project.
 #could increase functionality by changing "paras" to an argument so that "sentences" could be used instead && same with the number
 #need to use it a few times to see if that would be useful
+
+#upon first use I decided it was useless without those customizations. I would like to find a way to automate formatting of the output though
 function hipsum() {
-    curl -s "https://hipsum.co/api/?type=hipster-centric&paras=1" | jq | c
+    curl -s "https://hipsum.co/api/?type=hipster-centric&paras=$1" | jq | c
+}
+
+function hipsent() {
+    curl -s "https://hipsum.co/api/?type=hipster-centric&sentences=$1" | jq | c
 }
